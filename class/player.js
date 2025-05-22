@@ -32,18 +32,29 @@ class Player {
     }
 
     takeItem(itemName) {
-
-        // Fill this in
+        let item = this.currentRoom.getItemByName(itemName);
+        this.items.push(item);
+        this.currentRoom.items = this.currentRoom.items.filter(i => i.name !== itemName);
+        console.log(`You have taken the ${itemName}`);
+        
 
     }
 
     dropItem(itemName) {
-
-        // Fill this in
+        let item = this.getItemByName(itemName);
+        this.currentRoom.items.push(item);
+        this.items = this.items.filter(i => i.name !== itemName);
+        console.log(`You have dropped the ${itemName}`);
     }
 
     eatItem(itemName) {
-        // Fill this in
+        let item = this.getItemByName(itemName);
+        if (item.isFood) {
+            console.log(`You have eaten the ${itemName}`);
+            this.items = this.items.filter(i => i.name !== itemName);
+        } else {
+            console.log(`You cannot eat the ${itemName}`);
+        }
 
     }
 
