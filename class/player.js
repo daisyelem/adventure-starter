@@ -33,22 +33,29 @@ class Player {
 
     takeItem(itemName) {
         let item = this.currentRoom.getItemByName(itemName);
-        this.items.push(item);
-        this.currentRoom.items = this.currentRoom.items.filter(i => i.name !== itemName);
-        console.log(`You have taken the ${itemName}`);
+        if (item) {
+            this.items.push(item);
+            this.currentRoom.items = this.currentRoom.items.filter(i => i.name !== itemName);
+            console.log(`You have taken the ${itemName}`);
+        }
         
-
     }
 
     dropItem(itemName) {
         let item = this.getItemByName(itemName);
-        this.currentRoom.items.push(item);
-        this.items = this.items.filter(i => i.name !== itemName);
-        console.log(`You have dropped the ${itemName}`);
+        if (item) {
+            this.currentRoom.items.push(item);
+            this.items = this.items.filter(i => i.name !== itemName);
+            console.log(`You have dropped the ${itemName}`);
+        }
+        
     }
 
     eatItem(itemName) {
         let item = this.getItemByName(itemName);
+        if (!item) {
+            return
+        }
         if (item.isFood) {
             console.log(`You have eaten the ${itemName}`);
             this.items = this.items.filter(i => i.name !== itemName);
@@ -61,7 +68,8 @@ class Player {
     getItemByName(name) {
         const item = this.items.find(item => item.name === name);
         if (!item) {
-            throw new Error(`Error: Item ${name} not found in inventory`);
+            console.log(`Item ${name} not found in inventory`);
+            return
         }
         return item;
     }
