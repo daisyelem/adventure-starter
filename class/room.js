@@ -44,8 +44,11 @@ class Room {
     }
 
     getItemByName(name) {
-
-        // Fill this in
+        const item = this.items.find(item => item.name === name);
+        if (!item) {
+            throw new Error(`Error: Item ${name} not found in room ${this.name}`);
+        }
+        return item;
     }
 
 }
